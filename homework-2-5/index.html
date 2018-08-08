@@ -3,22 +3,28 @@
   <head>
     <title>2.5. Приложение 'Платежная ведомость'</title>
     <script src="index.js"></script>
+    <style>
+      table {
+        border-collapse: collapse;
+      }
+      table, th, td {
+        border: 1px solid black;
+      }
+    </style>
   </head>
   <body>
-    <div>In Progress</div>
+    <div id="container"></div>
+
     <script>
+      var dataTable = decodeData();
+      var totals = groupByColumn(dataTable, null, 3);
+      var totalsByDepartment = groupByColumn(dataTable, 1, 3);
+      var totalsByMonth = groupByColumn(dataTable, 0, 3);
 
-      var baseTable = decodeData();
-      console.log(baseTable);
-
-      var totalTable = groupByColumn(baseTable, null, 3);
-      console.log(totalTable);
-
-      var departmentsTable = groupByColumn(baseTable, 1, 3);
-      console.log(departmentsTable);
-
-      var monthesTable = groupByColumn(baseTable, 0, 3);
-      console.log(monthesTable);
+      var container = document.getElementById("container");
+      showTotal(totals, container);
+      showByDepartments(totalsByDepartment, container);
+      showByMonthes(totalsByMonth, container);
 
     </script>
   </body>

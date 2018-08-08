@@ -1,4 +1,69 @@
 
+function showTotal(data, parent) {
+  var th = createCell('th', 'Total');
+  var rows = [createRow([th])];
+  var total = (('Total' in data) ? data['Total'] : 0).toFixed(2);
+  var td = createCell('td', total);
+  rows.push(createRow([td]));
+  parent.appendChild(createTable(rows));
+  parent.appendChild(document.createElement('br'));
+}
+
+function showByDepartments(data, parent) {
+  var th1 = createCell('th', 'Department');
+  var th2 = createCell('th', 'Avg. Payment');
+  var rows = [createRow([th1, th2])];
+
+  for (var key in data) {
+    var value = data[key];
+    var td1 = createCell('td', key);
+    var td2 = createCell('td', (value).toFixed(2));
+    rows.push(createRow([td1, td2]));
+  }
+  parent.appendChild(createTable(rows));
+  parent.appendChild(document.createElement('br'));
+}
+
+function showByMonthes(data, parent) {
+  var th1 = createCell('th', 'Month');
+  var th2 = createCell('th', 'Avg. Payment');
+  var rows = [createRow([th1, th2])];
+
+  for (var key in data) {
+    var value = data[key];
+    var td1 = createCell('td', key);
+    var td2 = createCell('td', (value).toFixed(2));
+    rows.push(createRow([td1, td2]));
+  }
+  parent.appendChild(createTable(rows));
+  parent.appendChild(document.createElement('br'));  
+}
+
+function createTable(rows) {
+  var table = document.createElement('table');
+
+  for (var rowIdx = 0; rowIdx < rows.length; rowIdx++) {
+    table.appendChild(rows[rowIdx]);
+  }
+  return table;
+}
+
+function createRow(cells) {
+  var row = document.createElement('tr');
+
+  for (var cellIdx = 0; cellIdx < cells.length; cellIdx++) {
+    row.appendChild(cells[cellIdx]);
+  }
+  return row;
+}
+
+function createCell(type, content) {
+  var cell = document.createElement(type);
+  var content = document.createTextNode(content);
+  cell.appendChild(content);
+  return cell;
+}
+
 function groupByColumn(table, groupIdx, sumIdx) {
   var result = {};
 
