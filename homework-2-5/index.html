@@ -17,14 +17,14 @@
 
     <script>
       var dataTable = decodeData();
-      var totals = groupByColumn(dataTable, null, 3);
-      var totalsByDepartment = groupByColumn(dataTable, 1, 3);
-      var totalsByMonth = groupByColumn(dataTable, 0, 3);
+      var sum = sumByColumn(dataTable, null, 3);
+      var avgByDepartment = avgByColumn(dataTable, 1, 3);
+      var avgByMonth = avgByColumn(dataTable, 0, 3);
 
       var container = document.getElementById("container");
-      showTotal(totals, container);
-      showByDepartments(totalsByDepartment, container);
-      showByMonthes(totalsByMonth, container);
+      showTotal(sum, container);
+      showByDepartments(avgByDepartment, container);
+      showByMonthes(avgByMonth, container);
 
     </script>
   </body>

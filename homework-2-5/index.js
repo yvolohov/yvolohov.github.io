@@ -36,7 +36,7 @@ function showByMonthes(data, parent) {
     rows.push(createRow([td1, td2]));
   }
   parent.appendChild(createTable(rows));
-  parent.appendChild(document.createElement('br'));  
+  parent.appendChild(document.createElement('br'));
 }
 
 function createTable(rows) {
@@ -64,10 +64,10 @@ function createCell(type, content) {
   return cell;
 }
 
-function groupByColumn(table, groupIdx, sumIdx) {
+function sumByColumn(table, groupIdx, sumIdx) {
   var result = {};
 
-  for (var rowIdx = 1; rowIdx < table.length; rowIdx++) {
+  for (var rowIdx = 0; rowIdx < table.length; rowIdx++) {
     var row = table[rowIdx];
     var key = (groupIdx !== null) ? row[groupIdx] : 'Total';
     var value = new Number(row[sumIdx]);
@@ -78,6 +78,30 @@ function groupByColumn(table, groupIdx, sumIdx) {
     else {
       result[key] += value;
     }
+  }
+  return result;
+}
+
+function avgByColumn(table, groupIdx, avgIdx) {
+  var result = {};
+
+  for (var rowIdx = 0; rowIdx < table.length; rowIdx++) {
+    var row = table[rowIdx];
+    var key = (groupIdx !== null) ? row[groupIdx] : 'Total';
+    var value = new Number(row[avgIdx]);
+
+    if (!(key in result)) {
+      result[key] = [value, 1];
+    }
+    else {
+      result[key] = [result[key][0] + value, result[key][1] + 1];
+    }
+  }
+
+  for (var key in result) {
+    let value = result[key];
+    value = value[0] / value[1];
+    result[key] = value;
   }
   return result;
 }
