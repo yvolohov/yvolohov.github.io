@@ -24,3 +24,8 @@ var tree = [];
 makeTree(tree, 2, 4);
 console.log(tree);
 console.log(JSON.stringify(tree));
+
+var treeTwo = [];
+makeTree(treeTwo, 3, 5);
+console.log(treeTwo);
+console.log(JSON.stringify(treeTwo));
