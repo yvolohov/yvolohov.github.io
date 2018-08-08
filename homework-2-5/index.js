@@ -1,3 +1,26 @@
+function decodeData() {
+  var table = [];
+  var file = readFile();
+  var rows = file.split('\n');
+  var headers = rows[0].trim().split(',');
+
+  for (var rowIdx = 1; rowIdx < rows.length; rowIdx++) {
+    var cells = rows[rowIdx].trim().split(',');
+    var tableRow = {};
+
+    if (cells.length < 4) {
+      continue;
+    }
+
+    for (var cellIdx in cells) {
+      var cell = cells[cellIdx];
+      tableRow[headers[cellIdx]] = cell;
+    }
+    table.push(tableRow);
+  }
+  return table;
+}
+
 function readFile() {
   return (
     `MONTH,DEPARTMENT,EMPLOYEE,AMOUNT
