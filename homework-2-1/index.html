@@ -6,7 +6,7 @@
   <body>
     <div id="root"></div>
     <script>
-    
+
       function interview() {
         var usersData = [
           {field: 'ФИО', value: ''},
@@ -16,7 +16,8 @@
 
         for (var rowIdx in usersData) {
           var row = usersData[rowIdx];
-          row.value = prompt(row.field);
+          var value = prompt(row.field);
+          row.value = (value !== null) ? value : '';
         }
 
         var root = document.getElementById("root");
