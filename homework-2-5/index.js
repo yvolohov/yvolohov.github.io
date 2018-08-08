@@ -1,22 +1,34 @@
+
+function groupByColumn(table, groupIdx, sumIdx) {
+  var result = {};
+
+  for (var rowIdx = 1; rowIdx < table.length; rowIdx++) {
+    var row = table[rowIdx];
+    var key = (groupIdx !== null) ? row[groupIdx] : 'Total';
+    var value = new Number(row[sumIdx]);
+
+    if (!(key in result)) {
+      result[key] = value;
+    }
+    else {
+      result[key] += value;
+    }
+  }
+  return result;
+}
+
 function decodeData() {
   var table = [];
   var file = readFile();
   var rows = file.split('\n');
-  var headers = rows[0].trim().split(',');
 
   for (var rowIdx = 1; rowIdx < rows.length; rowIdx++) {
     var cells = rows[rowIdx].trim().split(',');
-    var tableRow = {};
 
     if (cells.length < 4) {
       continue;
     }
-
-    for (var cellIdx in cells) {
-      var cell = cells[cellIdx];
-      tableRow[headers[cellIdx]] = cell;
-    }
-    table.push(tableRow);
+    table.push(cells);
   }
   return table;
 }

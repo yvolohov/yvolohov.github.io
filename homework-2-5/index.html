@@ -7,8 +7,19 @@
   <body>
     <div>In Progress</div>
     <script>
-      var table = decodeData();
-      console.log(table);
+
+      var baseTable = decodeData();
+      console.log(baseTable);
+
+      var totalTable = groupByColumn(baseTable, null, 3);
+      console.log(totalTable);
+
+      var departmentsTable = groupByColumn(baseTable, 1, 3);
+      console.log(departmentsTable);
+
+      var monthesTable = groupByColumn(baseTable, 0, 3);
+      console.log(monthesTable);
+
     </script>
   </body>
 </html>
