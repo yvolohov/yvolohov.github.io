@@ -2,9 +2,40 @@
 <html>
   <head>
     <title>2.1. Опрос пользователя</title>
-    <script src="index.js"></script>
   </head>
   <body>
+    <div id="root"></div>
+    <script>
+    
+      function interview() {
+        var usersData = [
+          {field: 'ФИО', value: ''},
+          {field: 'Дата рождения', value: ''},
+          {field: 'Место жительства', value: ''}
+        ];
 
+        for (var rowIdx in usersData) {
+          var row = usersData[rowIdx];
+          row.value = prompt(row.field);
+        }
+
+        var root = document.getElementById("root");
+
+        for (var rowIdx in usersData) {
+          var row = usersData[rowIdx];
+          var div = document.createElement('div');
+          var b = document.createElement('b');
+          var header = document.createTextNode(row.field + ': ');
+          var value = document.createTextNode(row.value);
+
+          b.appendChild(header);
+          div.appendChild(b);
+          div.appendChild(value);
+          root.appendChild(div);
+        }
+      }
+
+      interview();
+    </script>
   </body>
 </html>
