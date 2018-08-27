@@ -3,6 +3,8 @@ import decodeRawData from './data/decode-raw-data';
 import sumByColumn from './data/sum-by-column';
 import avgByColumn from './data/avg-by-column';
 import showTotal from './views/show-total';
+import showByDepartments from './views/show-by-departments';
+import showByMonthes from './views/show-by-monthes';
 
 let dataTable = decodeRawData(RAW_DATA);
 let sum = sumByColumn(dataTable, null, 3);
@@ -11,5 +13,5 @@ let avgByMonth = avgByColumn(dataTable, 0, 3);
 
 let container = document.getElementById("container");
 showTotal(sum, container);
-// showByDepartments(avgByDepartment, container);
-// showByMonthes(avgByMonth, container);
+showByDepartments(avgByDepartment, container);
+showByMonthes(avgByMonth, container);
