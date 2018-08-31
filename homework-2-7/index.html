@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>2.7. Приложение 'Профиль GitHub-пользователя'</title>
+    <script src="index.js"></script>
+    <style>
+      table {
+        border-collapse: collapse;
+      }
+      table, th, td {
+        border: 1px solid black;
+      }
+    </style>
+  </head>
+  <body>
+    <script>
+      var queryString = window.location.search.substr(1);
+      var query = parseQuery(queryString);
+
+      if (('user' in query) && query['user']) {
+        fetchGithubUser(query['user']);
+      }
+      else {
+        console.log('Default page !!!');
+      }
+
+    </script>
+  </body>
+</html>
