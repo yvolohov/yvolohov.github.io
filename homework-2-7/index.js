@@ -30,22 +30,26 @@ function fetchGithubUser(user) {
 
 function showUserData(data) {
   var successContainer = document.getElementById('success-container');
-  var userName = document.getElementById('user-name');
-  var userLogin = document.getElementById('user-login');
-  var userCompany = document.getElementById('user-company');
-  var userLocation = document.getElementById('user-location');
+  var userLogo = document.getElementById('user-logo');
+  userLogo.src = data.avatar_url;
 
-  userName.innerText = data.name || '';
-  userLogin.innerText = data.login;
-  userCompany.innerText = data.company || '';
-  userLocation.innerText = data.location || '';
+  setValueToElement('user-name', data.name || '');
+  setValueToElement('user-login', data.login);
+  setValueToElement('user-company', data.company || '');
+  setValueToElement('user-location', data.location || '');
+  setValueToElement('user-repositories', data.public_repos);
+  setValueToElement('user-following', data.following);
+  setValueToElement('user-followers', data.followers);
   successContainer.style.display = 'block';
 }
 
 function showError(errorText) {
   var errorContainer = document.getElementById('error-container');
-  var errorLabel = document.getElementById('error-label');
-
-  errorLabel.innerText = errorText;
+  setValueToElement('error-label', errorText);
   errorContainer.style.display = 'block';
+}
+
+function setValueToElement(id, value) {
+  var element = document.getElementById(id);
+  element.innerText = value;
 }
