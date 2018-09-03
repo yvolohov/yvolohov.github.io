@@ -3,25 +3,49 @@
   <head>
     <title>2.7. Приложение 'Профиль GitHub-пользователя'</title>
     <script src="index.js"></script>
-    <style>
-      table {
-        border-collapse: collapse;
-      }
-      table, th, td {
-        border: 1px solid black;
-      }
-    </style>
+    <link rel="stylesheet" href="grid.css">
   </head>
   <body>
+    <div id="error-container" class="container" style="display: none;">
+      <div class="row">
+        <div class="col-12-sm" style="height: 100px;">
+          <div id="error-label"></div>
+        </div>
+      </div>
+    </div>
+
+    <div id="success-container" class="container" style="display: none;">
+      <div class="row">
+        <div class="col-12-sm" style="height: 100px;">
+          <p>
+            <h3 id="user-name"></h3>
+          </p>
+          <p>
+            <h4 id="user-login"></h4>
+          </p>
+          <p>
+            Company: <span id="user-company"></span>
+          </p>
+          <p>
+            Location: <span id="user-location"></span>
+          </p>
+          <p>
+            <h4>Statistics:</h4>
+          </p>
+        </div>
+      </div>
+    </div>
+
     <script>
       var queryString = window.location.search.substr(1);
       var query = parseQuery(queryString);
+      var userIsDefined = ('user' in query) && query['user'];
 
-      if (('user' in query) && query['user']) {
+      if (userIsDefined) {
         fetchGithubUser(query['user']);
       }
       else {
-        console.log('Default page !!!');
+        showError('User is undefined !!!');
       }
 
     </script>

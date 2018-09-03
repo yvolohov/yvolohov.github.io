@@ -10,13 +10,42 @@ function parseQuery(queryString) {
 }
 
 function fetchGithubUser(user) {
-  var p1 = fetch('https://api.github.com/users/' + user);
+  fetch('https://api.github.com/users/' + user)
 
-  var p2 = p1.then(function (response) {
-    return response.json();
-  });
+    .then(function (response) {
+      if (response.status !== 200) {
+        throw response.status + ': ' + response.statusText;
+      }
+      return response.json();
+    })
 
-  p2.then(function (response) {
-    console.log(response);
-  });
+    .then(function (response) {
+      showUserData(response);
+    })
+
+    .catch(function (error) {
+      showError(error);
+    });
+}
+
+function showUserData(data) {
+  var successContainer = document.getElementById('success-container');
+  var userName = document.getElementById('user-name');
+  var userLogin = document.getElementById('user-login');
+  var userCompany = document.getElementById('user-company');
+  var userLocation = document.getElementById('user-location');
+
+  userName.innerText = data.name || '';
+  userLogin.innerText = data.login;
+  userCompany.innerText = data.company || '';
+  userLocation.innerText = data.location || '';
+  successContainer.style.display = 'block';
+}
+
+function showError(errorText) {
+  var errorContainer = document.getElementById('error-container');
+  var errorLabel = document.getElementById('error-label');
+
+  errorLabel.innerText = errorText;
+  errorContainer.style.display = 'block';
 }
