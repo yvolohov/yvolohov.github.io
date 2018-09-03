@@ -12,6 +12,7 @@ function parseQuery(queryString) {
 function fetchGithubUser(user) {
   fetch('https://api.github.com/users/' + user)
 
+    /* reading body from stream and decoding to json */
     .then(function (response) {
       if (response.status !== 200) {
         throw response.status + ': ' + response.statusText;
@@ -19,6 +20,18 @@ function fetchGithubUser(user) {
       return response.json();
     })
 
+    /* loading avatar (logo) to img element */
+    .then(function (response) {
+      return new Promise(function (resolve) {
+        var userLogo = document.getElementById('user-logo');
+        userLogo.src = response.avatar_url;
+        userLogo.addEventListener('load', function (event) {
+          resolve(response);
+        });
+      });
+    })
+
+    /* loading anoter fields */
     .then(function (response) {
       showUserData(response);
     })
@@ -30,9 +43,6 @@ function fetchGithubUser(user) {
 
 function showUserData(data) {
   var successContainer = document.getElementById('success-container');
-  var userLogo = document.getElementById('user-logo');
-  userLogo.src = data.avatar_url;
-
   setValueToElement('user-name', data.name || '');
   setValueToElement('user-login', data.login);
   setValueToElement('user-company', data.company || '');
