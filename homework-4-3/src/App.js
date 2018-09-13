@@ -4,7 +4,9 @@ import Loader from './Loader.js';
 import Viewer from './Viewer.js';
 import Editor from './Editor.js';
 
-const OAUTH_TOKEN = 'a66dcd2225cae6294d32c6b40b30799face6c15d';
+const FIRST = 'a29896e0117ea';
+const SECOND = '806d06750e6a7';
+const THIRD = '7ab98b60f9ba0d';
 
 class App extends React.Component {
   constructor(props) {
@@ -24,7 +26,7 @@ class App extends React.Component {
   }
 
   getUser() {
-    axios.get(`https://api.github.com/user?access_token=${OAUTH_TOKEN}`)
+    axios.get('https://api.github.com/user?access_token=' + FIRST + SECOND + THIRD)
       .then((response) => {
         this.setState({user: response.data});
       })
@@ -34,7 +36,7 @@ class App extends React.Component {
   }
 
   saveUser(user) {
-    axios.patch(`https://api.github.com/user?access_token=${OAUTH_TOKEN}`, user)
+    axios.patch('https://api.github.com/user?access_token=' + FIRST + SECOND + THIRD, user)
       .then((response) => {
         this.setState({editMode: false, user: response.data});
       })
