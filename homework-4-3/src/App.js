@@ -4,7 +4,7 @@ import Loader from './Loader.js';
 import Viewer from './Viewer.js';
 import Editor from './Editor.js';
 
-const OAUTH_TOKEN = '92950aadc5f6187b6b9428b03bcae57e6f30910a';
+const OAUTH_TOKEN = 'a3c2a1312df2c3522d07fc53eb50128ff8ebb726';
 
 class App extends React.Component {
   constructor(props) {
@@ -16,25 +16,31 @@ class App extends React.Component {
   }
 
   componentWillMount() {
-    if (this.state.user) {
-      return;
-    }
-
-    axios.get(`https://api.github.com/user?access_token=${OAUTH_TOKEN}`)
-      .then((response) => {
-        this.setUser(response.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    this.getUser();
   }
 
   setMode(editMode) {
     this.setState({editMode: editMode});
   }
 
-  setUser(user) {
-    this.setState({user: user});
+  getUser() {
+    axios.get(`https://api.github.com/user?access_token=${OAUTH_TOKEN}`)
+      .then((response) => {
+        this.setState({user: response.data});
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
+  saveUser(user) {
+    axios.patch(`https://api.github.com/user?access_token=${OAUTH_TOKEN}`, user)
+      .then((response) => {
+        this.setState({editMode: false, user: response.data});
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 
   render() {
@@ -44,9 +50,9 @@ class App extends React.Component {
       return <Loader />;
     }
 
-    return (!editMode)
-      ? <Viewer user={user} setMode={this.setMode.bind(this, true)} />
-      : <Editor user={user} setMode={this.setMode.bind(this, false)} />;
+    return (editMode)
+      ? <Editor user={user} saveUser={this.saveUser.bind(this)} setMode={this.setMode.bind(this, false)} />
+      : <Viewer user={user} setMode={this.setMode.bind(this, true)} />;
   }
 }
 
