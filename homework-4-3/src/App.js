@@ -4,7 +4,7 @@ import Loader from './Loader.js';
 import Viewer from './Viewer.js';
 import Editor from './Editor.js';
 
-const OAUTH_TOKEN = 'b2cb505347ed748c5da1ca7e5d7cb9a1ab53f9a3';
+const OAUTH_TOKEN = '92950aadc5f6187b6b9428b03bcae57e6f30910a';
 
 class App extends React.Component {
   constructor(props) {
@@ -23,6 +23,9 @@ class App extends React.Component {
     axios.get(`https://api.github.com/user?access_token=${OAUTH_TOKEN}`)
       .then((response) => {
         this.setUser(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
       });
   }
 
@@ -43,7 +46,7 @@ class App extends React.Component {
 
     return (!editMode)
       ? <Viewer user={user} setMode={this.setMode.bind(this, true)} />
-      : <Editor setMode={this.setMode.bind(this, false)} />;
+      : <Editor user={user} setMode={this.setMode.bind(this, false)} />;
   }
 }
 
