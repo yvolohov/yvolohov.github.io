@@ -4,9 +4,7 @@ import Loader from './Loader.js';
 import Viewer from './Viewer.js';
 import Editor from './Editor.js';
 
-const FIRST = 'a29896e0117ea';
-const SECOND = '806d06750e6a7';
-const THIRD = '7ab98b60f9ba0d';
+const ACCESS_TOKEN = new Buffer('NGNkNmY4ZjYxYWE4ZGNhNzIxNzQ0ZTMyYmNkY2E0YmQxY2MyZWViMA==', 'base64').toString('ascii');
 
 class App extends React.Component {
   constructor(props) {
@@ -26,7 +24,7 @@ class App extends React.Component {
   }
 
   getUser() {
-    axios.get('https://api.github.com/user?access_token=' + FIRST + SECOND + THIRD)
+    axios.get('https://api.github.com/user?access_token=' + ACCESS_TOKEN)
       .then((response) => {
         this.setState({user: response.data});
       })
@@ -36,7 +34,7 @@ class App extends React.Component {
   }
 
   saveUser(user) {
-    axios.patch('https://api.github.com/user?access_token=' + FIRST + SECOND + THIRD, user)
+    axios.patch('https://api.github.com/user?access_token=' + ACCESS_TOKEN, user)
       .then((response) => {
         this.setState({editMode: false, user: response.data});
       })
