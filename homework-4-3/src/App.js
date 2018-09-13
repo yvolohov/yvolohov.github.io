@@ -4,7 +4,7 @@ import Loader from './Loader.js';
 import Viewer from './Viewer.js';
 import Editor from './Editor.js';
 
-const OAUTH_TOKEN = 'a3c2a1312df2c3522d07fc53eb50128ff8ebb726';
+const OAUTH_TOKEN = 'a66dcd2225cae6294d32c6b40b30799face6c15d';
 
 class App extends React.Component {
   constructor(props) {
